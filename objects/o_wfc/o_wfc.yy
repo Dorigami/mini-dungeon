@@ -9,8 +9,8 @@
   "name":"o_wfc",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Wave Function Collapse",
+    "path":"folders/Objects/Wave Function Collapse.yy",
   },
   "parentObjectId":null,
   "persistent":false,

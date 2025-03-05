@@ -6,6 +6,7 @@
     {"name":"Notes","order":13,"path":"folders/Notes.yy",},
     {"name":"Objects","order":9,"path":"folders/Objects.yy",},
     {"name":"Entities","order":4,"path":"folders/Objects/Entities.yy",},
+    {"name":"Wave Function Collapse","order":6,"path":"folders/Objects/Wave Function Collapse.yy",},
     {"name":"Menus","order":1,"path":"folders/Objects/Menus.yy",},
     {"name":"Particle Systems","order":15,"path":"folders/Particle Systems.yy",},
     {"name":"Paths","order":4,"path":"folders/Paths.yy",},
@@ -23,7 +24,6 @@
     {"name":"f_default_s","order":1,"path":"fonts/f_default_s/f_default_s.yy",},
     {"name":"o_camera","order":2,"path":"objects/o_camera/o_camera.yy",},
     {"name":"o_engine","order":3,"path":"objects/o_engine/o_engine.yy",},
-    {"name":"o_wfc","order":5,"path":"objects/o_wfc/o_wfc.yy",},
     {"name":"r_game","order":1,"path":"rooms/r_game/r_game.yy",},
     {"name":"r_init","order":2,"path":"rooms/r_init/r_init.yy",},
     {"name":"EasingFunctions","order":2,"path":"scripts/EasingFunctions/EasingFunctions.yy",},
@@ -32,5 +32,6 @@
     {"name":"RoomStartInitFunctions","order":5,"path":"scripts/RoomStartInitFunctions/RoomStartInitFunctions.yy",},
     {"name":"script_execute_array","order":1,"path":"scripts/script_execute_array/script_execute_array.yy",},
     {"name":"SettingsFunctions","order":3,"path":"scripts/SettingsFunctions/SettingsFunctions.yy",},
+    {"name":"wfcFunctions","order":1,"path":"scripts/wfcFunctions/wfcFunctions.yy",},
   ],
 }

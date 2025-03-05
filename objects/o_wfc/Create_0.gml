@@ -14,6 +14,8 @@ for(i=0;i<tmap_width;i++){
 
 wfc_max_depth = 5;
 
+wfc_setup();
+
 /* source code
 // Source image
 let sourceImage;

@@ -23,6 +23,7 @@
     {"name":"f_default_s","order":1,"path":"fonts/f_default_s/f_default_s.yy",},
     {"name":"o_camera","order":2,"path":"objects/o_camera/o_camera.yy",},
     {"name":"o_engine","order":3,"path":"objects/o_engine/o_engine.yy",},
+    {"name":"o_wfc","order":5,"path":"objects/o_wfc/o_wfc.yy",},
     {"name":"r_game","order":1,"path":"rooms/r_game/r_game.yy",},
     {"name":"r_init","order":2,"path":"rooms/r_init/r_init.yy",},
     {"name":"EasingFunctions","order":2,"path":"scripts/EasingFunctions/EasingFunctions.yy",},

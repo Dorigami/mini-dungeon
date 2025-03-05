@@ -1,4 +1,19 @@
 /// @description handle wave function collapse
+tmap = layer_tilemap_get_id(layer_get_id("wfc_tiles_0"));
+tmap_width = tilemap_get_width(tmap);
+tmap_height = tilemap_get_height(tmap);
+tmap_tile_width = tilemap_get_tile_width(tmap);
+tmap_tile_height = tilemap_get_tile_height(tmap);
+show_debug_message("tilemap = {0}",tmap);
+var i,j;
+// set tiles randomly
+for(j=0;j<tmap_height;j++){
+for(i=0;i<tmap_width;i++){
+	tilemap_set(tmap,irandom(95),i,j);
+}}
+
+wfc_max_depth = 5;
+
 /* source code
 // Source image
 let sourceImage;

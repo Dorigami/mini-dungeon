@@ -55,6 +55,7 @@
     {"id":{"name":"SettingsFunctions","path":"scripts/SettingsFunctions/SettingsFunctions.yy",},},
     {"id":{"name":"VectorFunctions","path":"scripts/VectorFunctions/VectorFunctions.yy",},},
     {"id":{"name":"Terrain","path":"sprites/Terrain/Terrain.yy",},},
+    {"id":{"name":"ts_terrain","path":"tilesets/ts_terrain/ts_terrain.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",

@@ -1,5 +1,9 @@
 /// @description 
 
+draw_set_color(c_white);
+draw_set_alpha(1);
+draw_circle(x,y,4,false);
+
 /*
 	// visual representation of the paritions
 	draw_set_alpha(1);

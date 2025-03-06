@@ -1,20 +1,82 @@
 /// @description handle wave function collapse
+
+function wfc() {
+	var i;
+  // Make a (shallow) copy of grid &
+  // Remove any collapsed cells from the copy
+  var _gridCopy = array_filter(wfc_cells, function(a){return !a.collapsed});
+
+  // We're done if all cells are collapsed!
+  if (array_length(gridCopy) == 0) {
+    exit;
+  }
+
+  // Sort cells by "entropy"
+  // (simplified formula of number of possible options left)
+  array_sort(_gridCopy,function(a,b){
+	  return array_length(a.options) - array_length(b.options)}
+	);
+
+  // Identify all cells with the lowest entropy
+  var _len = array_length(_gridCopy[0].options);
+  var stopIndex = 0;
+  for (i = 1; i < array_length(_gridCopy); i++) {
+    if (array_length(gridCopy[i].options) > _len) {
+      stopIndex = i;
+      break;
+    }
+  }
+  if (stopIndex > 0) array_copy(_gridCopy,0,_gridCopy,0,stopIndex+1);
+
+  // Randomly select one of the lowest entropy cells to collapse
+  var _cell = gridCopy[max(0,irandom(_len-1))];
+  _cell.collapsed = true;
+
+  // Choose one option randomly from the cell's options
+  var _pick = _cell.options[irandom(max(0,array_length(cell.options)-1))];
+  
+  // If there are no possible tiles that fit there!
+  if (_pick == undefined) {
+	show_debug_message("ran into a conflict");
+    exit;
+  }
+  
+  // Set the file tile
+  _cell.options = [_pick];
+
+  // Propagate entropy reduction to neighbors
+  reduceEntropy(wfc_cells, _cell, 0);
+}
+
+tmap_sprite = Terrain;
 tmap = layer_tilemap_get_id(layer_get_id("wfc_tiles_0"));
+tmap_ts = tileset_get_info(tilemap_get_tileset(tmap));
 tmap_width = tilemap_get_width(tmap);
 tmap_height = tilemap_get_height(tmap);
+tmap_tile_count = tmap_width*tmap_height;
 tmap_tile_width = tilemap_get_tile_width(tmap);
 tmap_tile_height = tilemap_get_tile_height(tmap);
 show_debug_message("tilemap = {0}",tmap);
 var i,j;
+show_debug_message("height={0} | width={1} | count={2}",tmap_height,tmap_width,tmap_tile_count);
 // set tiles randomly
 for(j=0;j<tmap_height;j++){
 for(i=0;i<tmap_width;i++){
-	tilemap_set(tmap,irandom(95),i,j);
+	tilemap_set(tmap,irandom(tmap_ts.tile_count-1),i,j);
 }}
 
-wfc_max_depth = 5;
+if(variable_instance_exists(id,"wfc_cells")){
 
-wfc_setup();
+} else {
+	//wfc_cells = ds_grid_create(tmap_width,tmap_height);
+	wfc_cells = array_create(tmap_tile_count);
+}
+wfc_max_depth = 5;
+// add constructors for the tiles and cells
+InitCellWFC();
+InitTileWFC();
+
+//wfc_setup();
 
 /* source code
 // Source image

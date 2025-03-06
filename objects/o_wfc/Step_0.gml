@@ -1,6 +1,9 @@
 /// @description 
 
 if(keyboard_check_pressed(vk_space)){
-	instance_create_depth(x,y,depth,o_wfc);
+	var _s = {
+		wfc_cells: wfc_cells
+	}
+	instance_create_depth(x,y,depth,o_wfc,_s);
 	instance_destroy();
 }

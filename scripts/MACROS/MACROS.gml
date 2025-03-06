@@ -7,6 +7,10 @@
 #macro DOWN -1
 #macro LEFT 0
 #macro RIGHT 1
+#macro TRIGHT 0
+#macro TLEFT 1
+#macro TUP 2
+#macro TDOWN 3
 #macro UPPERDEPTH -5000
 #macro ENTITYDEPTH -200
 #macro LOWERDEPTH 0

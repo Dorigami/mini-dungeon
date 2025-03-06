@@ -6,8 +6,8 @@
     {"name":"Notes","order":13,"path":"folders/Notes.yy",},
     {"name":"Objects","order":9,"path":"folders/Objects.yy",},
     {"name":"Entities","order":4,"path":"folders/Objects/Entities.yy",},
-    {"name":"Wave Function Collapse","order":6,"path":"folders/Objects/Wave Function Collapse.yy",},
     {"name":"Menus","order":1,"path":"folders/Objects/Menus.yy",},
+    {"name":"Wave Function Collapse","order":6,"path":"folders/Objects/Wave Function Collapse.yy",},
     {"name":"Particle Systems","order":15,"path":"folders/Particle Systems.yy",},
     {"name":"Paths","order":4,"path":"folders/Paths.yy",},
     {"name":"Rooms","order":10,"path":"folders/Rooms.yy",},
@@ -33,5 +33,7 @@
     {"name":"script_execute_array","order":1,"path":"scripts/script_execute_array/script_execute_array.yy",},
     {"name":"SettingsFunctions","order":3,"path":"scripts/SettingsFunctions/SettingsFunctions.yy",},
     {"name":"wfcFunctions","order":1,"path":"scripts/wfcFunctions/wfcFunctions.yy",},
+    {"name":"s_terrain","order":2,"path":"sprites/s_terrain/s_terrain.yy",},
+    {"name":"ts_terrain_min","order":1,"path":"tilesets/ts_terrain_min/ts_terrain_min.yy",},
   ],
 }

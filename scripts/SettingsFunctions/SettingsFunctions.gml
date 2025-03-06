@@ -23,7 +23,7 @@ function settings_create_config(_as_file=true){
 }
 function settings_determine_resolution(){
 	with(o_engine){
-		return [0, 160, 120]; // the first element is the index where this resolution came from
+		return [0, 480, 360]; // the first element is the index where this resolution came from
 		//return [0, 960, 720];
 	}
 }

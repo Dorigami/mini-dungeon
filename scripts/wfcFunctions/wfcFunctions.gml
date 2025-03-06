@@ -78,6 +78,10 @@ function wfc_setup() {
 	  var _sprite = -1;
 	  // encode edge pixel colors to use as edges for the wfc algorithm
 	  var _edges = [];
+	  var _uvs = tileset_get_uvs(tilemap_get_tileset(tmap));
+	  texture_get_uvs()
+	  draw_getpixel()
+	  show_debug_message("tileset texture uvs = {0}",_uvs);
 	  // create the tile
       array_push(wfc_tiles, new TileWFC(i, _sprite, _edges));
       _count++;

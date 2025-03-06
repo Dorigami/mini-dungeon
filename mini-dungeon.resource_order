@@ -27,6 +27,7 @@
     {"name":"r_game","order":1,"path":"rooms/r_game/r_game.yy",},
     {"name":"r_init","order":2,"path":"rooms/r_init/r_init.yy",},
     {"name":"EasingFunctions","order":2,"path":"scripts/EasingFunctions/EasingFunctions.yy",},
+    {"name":"getTilesetEdges","order":6,"path":"scripts/getTilesetEdges/getTilesetEdges.yy",},
     {"name":"MACROS","order":1,"path":"scripts/MACROS/MACROS.yy",},
     {"name":"ParticlesSystems","order":2,"path":"scripts/ParticlesSystems/ParticlesSystems.yy",},
     {"name":"RoomStartInitFunctions","order":5,"path":"scripts/RoomStartInitFunctions/RoomStartInitFunctions.yy",},

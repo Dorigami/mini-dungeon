@@ -38,6 +38,6 @@ ParticleSystemsInit();
 // misc setup
 randomize();
 game_set_speed(FRAME_RATE, gamespeed_fps);
-InitializeDisplay(1, true);
+InitializeDisplay(4, true);
 
 room_goto(ROOM_START);

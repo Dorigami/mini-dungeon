@@ -48,6 +48,7 @@
     {"id":{"name":"r_game","path":"rooms/r_game/r_game.yy",},},
     {"id":{"name":"r_init","path":"rooms/r_init/r_init.yy",},},
     {"id":{"name":"EasingFunctions","path":"scripts/EasingFunctions/EasingFunctions.yy",},},
+    {"id":{"name":"getTilesetEdges","path":"scripts/getTilesetEdges/getTilesetEdges.yy",},},
     {"id":{"name":"InitializeDisplay","path":"scripts/InitializeDisplay/InitializeDisplay.yy",},},
     {"id":{"name":"MACROS","path":"scripts/MACROS/MACROS.yy",},},
     {"id":{"name":"ParticlesSystems","path":"scripts/ParticlesSystems/ParticlesSystems.yy",},},

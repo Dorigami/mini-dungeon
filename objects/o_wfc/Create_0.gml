@@ -65,18 +65,18 @@ for(i=0;i<tmap_width;i++){
 	tilemap_set(tmap,irandom(tmap_ts.tile_count-1),i,j);
 }}
 
-if(variable_instance_exists(id,"wfc_cells")){
-
-} else {
-	//wfc_cells = ds_grid_create(tmap_width,tmap_height);
+if(!variable_instance_exists(id,"wfc_cells")){
 	wfc_cells = array_create(tmap_tile_count);
+}
+if(!variable_instance_exists(id,"wfc_tiles")){
+	wfc_tiles = [];
 }
 wfc_max_depth = 5;
 // add constructors for the tiles and cells
 InitCellWFC();
 InitTileWFC();
 
-//wfc_setup();
+wfc_setup();
 
 /* source code
 // Source image

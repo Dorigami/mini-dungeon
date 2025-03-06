@@ -4,10 +4,10 @@ function wfc() {
 	var i;
   // Make a (shallow) copy of grid &
   // Remove any collapsed cells from the copy
-  var _gridCopy = array_filter(wfc_cells, function(a){return !a.collapsed});
+  var _gridCopy = array_filter(wfc_cells, function(a, ind){ return !a.collapsed});
 
   // We're done if all cells are collapsed!
-  if (array_length(gridCopy) == 0) {
+  if (array_length(_gridCopy) == 0) {
     exit;
   }
 
@@ -21,7 +21,7 @@ function wfc() {
   var _len = array_length(_gridCopy[0].options);
   var stopIndex = 0;
   for (i = 1; i < array_length(_gridCopy); i++) {
-    if (array_length(gridCopy[i].options) > _len) {
+    if (array_length(_gridCopy[i].options) > _len) {
       stopIndex = i;
       break;
     }
@@ -29,11 +29,11 @@ function wfc() {
   if (stopIndex > 0) array_copy(_gridCopy,0,_gridCopy,0,stopIndex+1);
 
   // Randomly select one of the lowest entropy cells to collapse
-  var _cell = gridCopy[max(0,irandom(_len-1))];
+  var _cell = _gridCopy[max(0,irandom(_len-1))];
   _cell.collapsed = true;
 
   // Choose one option randomly from the cell's options
-  var _pick = _cell.options[irandom(max(0,array_length(cell.options)-1))];
+  var _pick = _cell.options[irandom(max(0,array_length(_cell.options)-1))];
   
   // If there are no possible tiles that fit there!
   if (_pick == undefined) {
@@ -48,7 +48,7 @@ function wfc() {
   reduceEntropy(wfc_cells, _cell, 0);
 }
 
-tmap_sprite = Terrain;
+tmap_source_sprite = s_terrain;
 tmap = layer_tilemap_get_id(layer_get_id("wfc_tiles_0"));
 tmap_ts = tileset_get_info(tilemap_get_tileset(tmap));
 tmap_width = tilemap_get_width(tmap);
@@ -139,36 +139,36 @@ function draw() {
 function wfc() {
 
   // Make a (shallow) copy of grid
-  let gridCopy = grid.slice();
+  let _gridCopy = grid.slice();
 
   // Remove any collapsed cells from the copy
-  gridCopy = gridCopy.filter((a) => !a.collapsed);
+  _gridCopy = _gridCopy.filter((a) => !a.collapsed);
 
   // We're done if all cells are collapsed!
-  if (gridCopy.length == 0) {
+  if (_gridCopy.length == 0) {
     noLoop();
     return;
   }
 
   // Sort cells by "entropy"
   // (simplified formula of number of possible options left)
-  gridCopy.sort((a, b) => {
+  _gridCopy.sort((a, b) => {
     return a.options.length - b.options.length;
   });
 
   // Identify all cells with the lowest entropy
-  let len = gridCopy[0].options.length;
+  let len = _gridCopy[0].options.length;
   let stopIndex = 0;
-  for (let i = 1; i < gridCopy.length; i++) {
-    if (gridCopy[i].options.length > len) {
+  for (let i = 1; i < _gridCopy.length; i++) {
+    if (_gridCopy[i].options.length > len) {
       stopIndex = i;
       break;
     }
   }
-  if (stopIndex > 0) gridCopy.splice(stopIndex);
+  if (stopIndex > 0) _gridCopy.splice(stopIndex);
 
   // Randomly select one of the lowest entropy cells to collapse
-  const cell = random(gridCopy);
+  const cell = random(_gridCopy);
   cell.collapsed = true;
 
   // Choose one option randomly from the cell's options
@@ -209,7 +209,7 @@ function reduceEntropy(grid, cell, depth) {
   // RIGHT
   if (i + 1 < DIM) {
     let rightCell = grid[i + 1 + j * DIM];
-    let checked = checkOptions(cell, rightCell, TRIGHT);
+    let checked = checkOptions(cell, rightCell, EAST);
     if (checked) {
       reduceEntropy(grid, rightCell, depth + 1);
     }
@@ -218,7 +218,7 @@ function reduceEntropy(grid, cell, depth) {
   // LEFT
   if (i - 1 >= 0) {
     let leftCell = grid[i - 1 + j * DIM];
-    let checked = checkOptions(cell, leftCell, TLEFT);
+    let checked = checkOptions(cell, leftCell, WEST);
     if (checked) {
       reduceEntropy(grid, leftCell, depth + 1);
     }
@@ -227,7 +227,7 @@ function reduceEntropy(grid, cell, depth) {
   // DOWN
   if (j + 1 < DIM) {
     let downCell = grid[i + (j + 1) * DIM];
-    let checked = checkOptions(cell, downCell, TDOWN);
+    let checked = checkOptions(cell, downCell, SOUTH);
     if (checked) {
       reduceEntropy(grid, downCell, depth + 1);
     }
@@ -236,7 +236,7 @@ function reduceEntropy(grid, cell, depth) {
   // UP
   if (j - 1 >= 0) {
     let upCell = grid[i + (j - 1) * DIM];
-    let checked = checkOptions(cell, upCell, TUP);
+    let checked = checkOptions(cell, upCell, NORTH);
     if (checked) {
       reduceEntropy(grid, upCell, depth + 1);
     }

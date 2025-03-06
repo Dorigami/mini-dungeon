@@ -13,10 +13,11 @@ function compareEdge(a, b) {
 }
 
 function InitCellWFC(){
-	CellWFC = function(_options, _col, _row) constructor{
+	CellWFC = function(_options, _col, _row, _index) constructor{
 		// Initialize the cell as not collapsed
 		collapsed = false;
 		checked = false;
+		index = _index;
 		col = _col;
 		row = _row;
 		// Is an array passed in?
@@ -46,19 +47,19 @@ function InitTileWFC(){
 				// Skip if both tiles are tile 5
 				if (_tile.index == 5 && index == 5) continue;
 				// Check if the current tile's bottom edge matches this tile's top edge
-				if (compareEdge(_tile.edges[2], edges[0])) {
+				if (compareEdge(_tile.edges[SOUTH], edges[NORTH])) {
 				array_push(up,i);
 				}
 				// Check if the current tile's left edge matches this tile's right edge
-				if (compareEdge(_tile.edges[3], edges[1])) {
+				if (compareEdge(_tile.edges[WEST], edges[EAST])) {
 				array_push(right,i);
 				}
 				// Check if the current tile's top edge matches this tile's bottom edge
-				if (compareEdge(_tile.edges[0], edges[2])) {
+				if (compareEdge(_tile.edges[NORTH], edges[SOUTH])) {
 				array_push(down,i);
 				}
 				// Check if the current tile's right edge matches this tile's left edge
-				if (compareEdge(_tile.edges[1], edges[3])) {
+				if (compareEdge(_tile.edges[EAST], edges[WEST])) {
 				array_push(left,i);
 				}
 			}
@@ -69,38 +70,36 @@ function InitTileWFC(){
 	}
 }
 function wfc_setup() {
-  // Extract tiles and calculate their adjacencies
-  var i, j, _w = tmap_width, _h = tmap_height;
-  var _count = 0;
-  for(j = 0; j < _h; j++) {
-  for(i = 0; i < _w; i++) {
-	  // get the image
-	  var _sprite = -1;
-	  // encode edge pixel colors to use as edges for the wfc algorithm
-	  var _edges = [];
-	  var _uvs = tileset_get_uvs(tilemap_get_tileset(tmap));
-	  texture_get_uvs()
-	  draw_getpixel()
-	  show_debug_message("tileset texture uvs = {0}",_uvs);
-	  // create the tile
-      array_push(wfc_tiles, new TileWFC(i, _sprite, _edges));
-      _count++;
-  }}
-  tiles = extractTiles(sourceImage);
-  for (i=0;i<array_length(wfc_tiles);i++) {
-	  wfc_tiles[i].calculateNeighbors(wfc_tiles)
-  }
+	// Extract tiles and calculate their adjacencies
+	var i, j, _w = tmap_width, _h = tmap_height;
+	var _count = 0;
+	// encode edge pixel colors to use as edges for the wfc algorithm
+	// the edges array contains the edge codes for each edge for each tile
+	var _tile_edges = getTilesetEdges(tmap_ts);
+	show_debug_message("tileset tile = {0}", tmap_ts.tile_count);
+	for(i = 0; i < array_length(_tile_edges); i++) {// index 0 is always empty, so skip it
+		// get the image
+		var _sprite = -1;
+		// create the tile
+		array_push(wfc_tiles, new TileWFC(i, _sprite, _tile_edges[i]));
+	}
+	// determine the valid neighbors for each tile
+	for (i=0;i<array_length(wfc_tiles);i++) {
+		wfc_tiles[i].calculateNeighbors(wfc_tiles);
+	}
 
-  // Initialize cells of the tilemap
-  _count = 0;
-  for(j = 0; j < _h; j++) {
-  for(i = 0; i < _w; i++) {
-      array_push(wfc_cells, new CellWFC(wfc_tiles, i, j));
-      _count++;
-  }}
+	// Initialize cells of the tilemap
+	_count = 0;
+	for(j = 0; j < _h; j++) {
+	for(i = 0; i < _w; i++) {
+		if(!is_instanceof(wfc_cells[_count], CellWFC)){
+			wfc_cells[_count] = new CellWFC(wfc_tiles, i, j, _count);
+		}
+		_count++;
+	}}
 
-  // Perform initial wave function collapse step
-  wfc();
+	// Perform initial wave function collapse step
+	wfc();
 }
 
 function reduceEntropy(_grid, _cell, _depth) {
@@ -127,28 +126,28 @@ function reduceEntropy(_grid, _cell, _depth) {
   // RIGHT
   if (i + 1 < _dim) {
     _rightCell = _grid[i + 1 + j * _dim];
-    _checked = checkOptions(_cell, _rightCell, TRIGHT);
+    _checked = checkOptions(_cell, _rightCell, EAST);
     if (_checked) { reduceEntropy(_grid, _rightCell, _depth + 1) }
   }
 
   // LEFT
   if (i - 1 >= 0) {
     _leftCell = _grid[i - 1 + j * _dim];
-    _checked = checkOptions(_cell, _leftCell, TLEFT);
+    _checked = checkOptions(_cell, _leftCell, WEST);
     if (_checked) { reduceEntropy(_grid, _leftCell, _depth + 1) }
   }
 
   // DOWN
   if (j + 1 < _dim) {
     _downCell = _grid[i + (j + 1) * _dim];
-    _checked = checkOptions(_cell, _downCell, TDOWN);
+    _checked = checkOptions(_cell, _downCell, SOUTH);
     if (_checked) { reduceEntropy(_grid, _downCell, _depth + 1) }
   }
 
   // UP
   if (j - 1 >= 0) {
     _upCell = _grid[i + (j - 1) * _dim];
-    _checked = checkOptions(_cell, _upCell, TUP);
+    _checked = checkOptions(_cell, _upCell, NORTH);
     if (_checked) { reduceEntropy(_grid, _upCell, _depth + 1) }
   }
 }
@@ -160,7 +159,7 @@ function checkOptions(_cell, _neighbor, _direction) {
     var _validOptions = [];
 	for(var i=0;i<array_length(_cell.options);i++){
 		var _option = _cell.options[i];
-		_validOptions = array_concat(_validOptions,tiles[_option].neighbors[_direction]);
+		_validOptions = array_concat(_validOptions, wfc_tiles[_option].neighbors[_direction]);
 	}
 
     // Filter the neighbor's options to retain only those that are valid
@@ -170,7 +169,6 @@ function checkOptions(_cell, _neighbor, _direction) {
 			return array_contains_ext(_validOptions,elem,true);
 		}
 	);
-
     // Return true if the options were successfully reduced
     return true;
   } else {

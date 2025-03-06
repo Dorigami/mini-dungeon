@@ -1,44 +1,66 @@
 function getTilesetEdges(_tileset){
-	// colors
-	var _c_light = global.i_engine.color_light
-	var _c_dark = global.i_engine.color_dark
-	var _c_accent = global.i_engine.color_accent
-	// this will take any sprite, and replace {c_black} with the {_color} parameter
-	var _w = ceil(sqrt(3)*_hex_size);
-	var _h = _hex_size*2;
-	var _ox = _w div 2;
-	var _oy = _h div 2;
-	var _surface_w = _columns*_w + ((_rows>1)*_w div 2) + _hsep*_columns;
-	var _surface_h = _h + ((_rows-1)*0.75*_h) + _vsep*_rows;
-	var _surface = surface_create(_surface_w,_surface_h) ;
-	var _new_sprite = -1;
-	var i, j, _x, _y;
-	
+	var _ts_width = _tileset.width;
+	var _ts_height = _tileset.height;
+	var _tile_w = _tileset.tile_width;
+	var _tile_h = _tileset.tile_height;
+	var _tile_hsep = _tileset.tile_horizontal_separator;
+	var _tile_vsep = _tileset.tile_vertical_separator;
+	var _tile_count = _tileset.tile_count;
+	var _col_max = _ts_width div _tile_w;
+	var _row_max = _ts_height div _tile_h;
+	var _surface = surface_create(_ts_width,_ts_height) ;
+	var _edge, _edges = [];
+	var i, j, k, _x, _y, _ox, _oy, _col, _row, _str;
+
 	// prep surface
 	surface_set_target(_surface);
 	draw_clear_alpha(c_black, 0);
 	draw_set_color(c_white);
 	draw_set_alpha(1.0);
+	draw_sprite(tmap_source_sprite,0,0,0);
 
-	shader_set(sh_player_color);
-	var _handle = global.i_engine.player_color_uni;
-	var _color = global.i_engine.color_light;
-	shader_set_uniform_f(_handle, color_get_red(_color)*1.0/255, color_get_green(_color)*1.0/255, color_get_blue(_color)*1.0/255);
-	// draw each row
-	for(i=0;i<_rows;i++){
-		_y = (_vsep div 2) + (_h div 2) + (_h*0.75 + _vsep)*i;
-		for(j=0;j<_columns;j++){
-			_x = (_hsep div 2) + (_w div 2) + ((i%2)*(_w div 2)) + (_w+_hsep)*j;
-			draw_sprite(_hex0,2,_x,_y);
-			draw_sprite(_hex1,2,_x,_y);
+	// go through each tile to read the colors at the edges, skip index 0 which is always empty
+	for(k=1;k<_tile_count;k++){
+		_col = k % _col_max;
+		_row = k div _col_max;
+		_ox = _col*(_tile_w + 2*_tile_hsep);
+		_oy = _row*(_tile_h + 2*_tile_vsep);
+		// loop through every pixel along each edge of the tile, codify the colors
+		for(j = 0; j < 4; j++) {
+			_str = "";
+			_edge = array_create(4);
+			switch(j){
+				case EAST: 
+					for(i = 0; i < _tile_h; i++) {
+						_str += draw_getpixel(_ox+_tile_w,_oy+i) == c_white ? "1" : "0";
+					}
+					break;
+				case NORTH: 
+					for(i = 0; i < _tile_w; i++) {
+						_str += draw_getpixel(_ox+i,_oy) == c_white ? "1" : "0";
+					}
+					break;
+				case WEST: 
+					for(i = 0; i < _tile_h; i++) {
+						_str += draw_getpixel(_ox,_oy+i) == c_white ? "1" : "0";
+					}
+					break;
+				case SOUTH: 
+					for(i = 0; i < _tile_w; i++) {
+						_str += draw_getpixel(_ox+i,_oy+_tile_h) == c_white ? "1" : "0";
+					}
+					break;
+			}
+			// add the edge code to this tile's array
+			_edge[j] = _str;
 		}
+		show_debug_message("tile#{0} edges = {1}",k,_edge);
+		// add the completed edge array to the array of edges
+		array_push(_edges, _edge);
 	}
-	shader_reset();
-
-	_new_sprite = sprite_create_from_surface(_surface, 0, 0, _surface_w, _surface_h, false, false, 0, 0);
 
 	// cleanup
 	surface_reset_target();
 	surface_free(_surface);
-	return _new_sprite;
+	return _edges;
 }

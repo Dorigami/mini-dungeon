@@ -34,7 +34,9 @@
     {"name":"script_execute_array","order":1,"path":"scripts/script_execute_array/script_execute_array.yy",},
     {"name":"SettingsFunctions","order":3,"path":"scripts/SettingsFunctions/SettingsFunctions.yy",},
     {"name":"wfcFunctions","order":1,"path":"scripts/wfcFunctions/wfcFunctions.yy",},
+    {"name":"s_small_tiles","order":4,"path":"sprites/s_small_tiles/s_small_tiles.yy",},
     {"name":"s_terrain","order":2,"path":"sprites/s_terrain/s_terrain.yy",},
+    {"name":"ts_small_tiles","order":2,"path":"tilesets/ts_small_tiles/ts_small_tiles.yy",},
     {"name":"ts_terrain_min","order":1,"path":"tilesets/ts_terrain_min/ts_terrain_min.yy",},
   ],
 }

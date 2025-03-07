@@ -1,7 +1,8 @@
 /// @description set up camera
 
-cam = view_camera[0];
+
 follow = noone;
+cam = view_camera[0];
 viewWidthHalf = 0.5*camera_get_view_width(cam);
 viewHeightHalf = 0.5*camera_get_view_height(cam);
 

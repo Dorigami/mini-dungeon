@@ -1,4 +1,4 @@
-function settings_create_config(_as_file=true){
+function settings_create_config(){
 	var _s = {}
 	var _key_values = [
 		["fullscreen", 0],
@@ -6,20 +6,12 @@ function settings_create_config(_as_file=true){
 		["aspect_ratio", 16/9],
 		["music_volume", 0.5],
 		["sfx_volume", 0.5],
-		["show_valid_moves", 1],
-		["game_speed",3]
 	];
 	// set the struct values, then return
 	for(var i=0; i<array_length(_key_values); i++){
 		_s[$ _key_values[i][0]] = _key_values[i][1];
 	}
-	if(_as_file){
-		var _file = file_text_open_write(working_directory+"settings.cfg");
-		file_text_write_string(_file, json_stringify(_s));
-		file_text_close(_file);
-	} else {
-		return _s;
-	}
+	return _s;
 }
 function settings_determine_resolution(){
 	with(o_engine){
@@ -28,6 +20,7 @@ function settings_determine_resolution(){
 	}
 }
 function settings_load_from_config(){
+	/*
 	if(!os_is_html5){
 		var _json, _file, _filename = working_directory + "settings.cfg";
 		if(!file_exists(_filename)){ settings_create_config() }
@@ -36,9 +29,10 @@ function settings_load_from_config(){
 		file_text_close(_file);
 		return _json;
 	} else {
+	*/
 		// get the default settings struct from the create settings function
 		return settings_create_config(false);
-	}
+	//}
 }
 function settings_save_to_config(){
 	if(os_is_html5) exit;

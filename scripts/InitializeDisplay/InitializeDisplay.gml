@@ -3,7 +3,7 @@ function InitializeDisplay(_zoom=1, _lock_width=true){
 	var i, d; 
 	with(o_engine){
 		var _display_asp = display_get_width()/display_get_height();
-		var _asp = settings.resolution[1]/settings.resolution[2]; //settings.resolution[1] / settings.resolution[2];
+		var _asp = settings.resolution[1]/settings.resolution[2];
 		show_debug_message("Initialize Display: [{0}x{1}] asp ratio = {2}", settings.resolution[1], settings.resolution[2], _asp);
 		if(_lock_width){
 			idealWidth = min(display_get_width(),settings[$ "resolution"][1]); // RESOLUTION_W;
@@ -49,8 +49,14 @@ function InitializeDisplay(_zoom=1, _lock_width=true){
 			alarm[0] = 2;
 		}
 
-		surface_resize(application_surface, idealWidth, idealHeight);
+		surface_resize(application_surface, idealWidth*zoom, idealHeight*zoom);
 		display_set_gui_size(idealWidth, idealHeight);
 		window_set_size(idealWidth*zoom, idealHeight*zoom);
+		
+		with(o_camera){
+			cam = view_camera[0];
+			viewWidthHalf = 0.5*camera_get_view_width(cam);
+			viewHeightHalf = 0.5*camera_get_view_height(cam);
+		}
 	}
 }

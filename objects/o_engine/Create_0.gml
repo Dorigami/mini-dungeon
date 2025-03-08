@@ -41,3 +41,4 @@ game_set_speed(FRAME_RATE, gamespeed_fps);
 InitializeDisplay(2, true);
 
 room_goto(ROOM_START);
+draw_set_font(f_default_L);

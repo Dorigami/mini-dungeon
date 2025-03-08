@@ -1,14 +1,16 @@
 {
   "$GMTileSet":"v1",
-  "%Name":"ts_terrain_min",
-  "autoTileSets":[],
+  "%Name":"ts_terrain_old",
+  "autoTileSets":[
+    {"$GMAutoTileSet":"","%Name":"autotile_1","closed_edge":false,"name":"autotile_1","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,],},
+  ],
   "macroPageTiles":{
     "SerialiseHeight":0,
     "SerialiseWidth":0,
     "TileSerialiseData":[],
   },
-  "name":"ts_terrain_min",
-  "out_columns":6,
+  "name":"ts_terrain_old",
+  "out_columns":10,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -18,8 +20,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"s_terrain",
-    "path":"sprites/s_terrain/s_terrain.yy",
+    "name":"Terrain",
+    "path":"sprites/Terrain/Terrain.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{
@@ -34,5 +36,5 @@
   "tileWidth":32,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":40,
+  "tile_count":96,
 }

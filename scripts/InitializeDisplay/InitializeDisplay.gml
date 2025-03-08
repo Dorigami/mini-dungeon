@@ -33,7 +33,6 @@ function InitializeDisplay(_zoom=1, _lock_width=true){
 		zoom = _zoom; // 1, 2, or 3
 		zoomMax = floor(display_get_width() / idealWidth);
 		zoom = min(zoom, zoomMax);
-		view_zoom = 1;
 	
 		// enable & set views of each room
 		for(i=0; i<=100; i++)
@@ -43,6 +42,10 @@ function InitializeDisplay(_zoom=1, _lock_width=true){
 			if(i == 30){show_message("update display initialize, there are too many rooms")}
 			room_set_view_enabled(i, true);
 			room_set_viewport(i,0,true,0,0,idealWidth, idealHeight);
+			//room_set_width(i,idealWidth);
+			//room_set_height(i,idealHeight);
+			var _cam = room_get_camera(i,0);
+			camera_set_view_size(_cam, idealWidth, idealHeight);
 		}
 		// set timer to center window
 		if(!init_display_flag){
@@ -53,10 +56,6 @@ function InitializeDisplay(_zoom=1, _lock_width=true){
 		display_set_gui_size(idealWidth, idealHeight);
 		window_set_size(idealWidth*zoom, idealHeight*zoom);
 		
-		with(o_camera){
-			cam = view_camera[0];
-			viewWidthHalf = 0.5*camera_get_view_width(cam);
-			viewHeightHalf = 0.5*camera_get_view_height(cam);
-		}
+		with(o_camera){ resize() }
 	}
 }

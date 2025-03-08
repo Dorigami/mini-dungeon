@@ -61,7 +61,7 @@
     {"id":{"name":"s_terrain","path":"sprites/s_terrain/s_terrain.yy",},},
     {"id":{"name":"Terrain","path":"sprites/Terrain/Terrain.yy",},},
     {"id":{"name":"ts_small_tiles","path":"tilesets/ts_small_tiles/ts_small_tiles.yy",},},
-    {"id":{"name":"ts_terrain_min","path":"tilesets/ts_terrain_min/ts_terrain_min.yy",},},
+    {"id":{"name":"ts_terrain_old","path":"tilesets/ts_terrain_old/ts_terrain_old.yy",},},
     {"id":{"name":"ts_terrain","path":"tilesets/ts_terrain/ts_terrain.yy",},},
   ],
   "resourceType":"GMProject",

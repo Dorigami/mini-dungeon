@@ -60,5 +60,4 @@ function settings_enforce_values(){
 	global.i_sound.set_sfx_volume(_settings.sfx_volume);
 	if(_settings.fullscreen != window_get_fullscreen()){ window_set_fullscreen(_settings.fullscreen) }
 	
-	InitializeDisplay();
 }

@@ -42,8 +42,8 @@ function InitializeDisplay(_zoom=1, _lock_width=true){
 			if(i == 30){show_message("update display initialize, there are too many rooms")}
 			room_set_view_enabled(i, true);
 			room_set_viewport(i,0,true,0,0,idealWidth, idealHeight);
-			//room_set_width(i,idealWidth);
-			//room_set_height(i,idealHeight);
+			room_set_width(i,idealWidth);
+			room_set_height(i,idealHeight);
 			var _cam = room_get_camera(i,0);
 			camera_set_view_size(_cam, idealWidth, idealHeight);
 		}

@@ -29,7 +29,7 @@ if(!variable_instance_exists(id,"wfc_tiles")){
 // due to scope issues, this cannot be a local var
 validOptions = [];
 loop_interval = floor(FRAME_RATE*0.05);
-wfc_max_depth = 2;
+wfc_max_depth = 8;
 wfc_complete = false;
 wfc_time_source = time_source_create(time_source_game, 0.002, time_source_units_seconds, wfc,[id],-1);
 wfc_recent_tile = -1;
